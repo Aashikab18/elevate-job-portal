@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: elevate-postgres
+    environment:
+      POSTGRES_USER: elevate_dev
+      POSTGRES_PASSWORD: elevate_dev_pw
+      POSTGRES_DB: elevatejobportal
+    ports:
+      - "5432:5432"
+    volumes:
+      - elevate_pgdata:/var/lib/postgresql/data
+
+volumes:
+  elevate_pgdata:
