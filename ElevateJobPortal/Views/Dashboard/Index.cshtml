@@ -1,0 +1,30 @@
+@model List<ElevateJobPortal.Models.JobApplication>
+@{ ViewData["Title"] = "Dashboard"; }
+
+<h2 class="mb-3">Applications received</h2>
+
+@if (!Model.Any())
+{
+  <p>No applications have been received yet.</p>
+}
+else
+{
+  <table class="table table-striped">
+    <thead>
+      <tr><th>Job</th><th>Applicant</th><th>Email</th><th>Applied on</th><th>Status</th><th>Cover letter</th></tr>
+    </thead>
+    <tbody>
+    @foreach (var a in Model)
+    {
+      <tr>
+        <td>@a.Job?.Title</td>
+        <td>@a.Applicant?.FullName</td>
+        <td>@a.Applicant?.Email</td>
+        <td>@a.AppliedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+        <td>@a.Status</td>
+        <td><details><summary>Read</summary>@a.CoverLetter</details></td>
+      </tr>
+    }
+    </tbody>
+  </table>
+}

@@ -1,0 +1,42 @@
+@model ElevateJobPortal.ViewModels.PagedResult<ElevateJobPortal.Models.Job>
+@{ ViewData["Title"] = "Jobs"; }
+
+<h2 class="mb-3">Available jobs</h2>
+
+@if (!Model.Items.Any())
+{
+  <p>No jobs are available right now.</p>
+}
+else
+{
+  <div class="list-group mb-3">
+  @foreach (var job in Model.Items)
+  {
+    <a asp-action="Details" asp-route-id="@job.Id" class="list-group-item list-group-item-action">
+      <div class="d-flex justify-content-between">
+        <h5 class="mb-1">@job.Title</h5>
+        <small>Deadline: @job.Deadline.ToString("yyyy-MM-dd")</small>
+      </div>
+      <p class="mb-1">@job.Company?.Name - @job.Location - @job.JobType</p>
+    </a>
+  }
+  </div>
+
+  <nav>
+    <ul class="pagination">
+      <li class="page-item @(Model.HasPrevious ? "" : "disabled")">
+        <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageNumber - 1)">Previous</a>
+      </li>
+      @for (var i = 1; i <= Model.TotalPages; i++)
+      {
+        <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+          <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+        </li>
+      }
+      <li class="page-item @(Model.HasNext ? "" : "disabled")">
+        <a class="page-link" asp-action="Index" asp-route-page="@(Model.PageNumber + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+  <p class="text-muted">Page @Model.PageNumber of @Model.TotalPages (@Model.TotalCount jobs)</p>
+}

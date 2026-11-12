@@ -1,0 +1,24 @@
+@model ElevateJobPortal.ViewModels.ApplicationFormViewModel
+@{ ViewData["Title"] = "Apply"; }
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <h2 class="mb-3">Apply for @Model.JobTitle</h2>
+    <form asp-action="Apply" method="post">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      <input type="hidden" asp-for="JobId" />
+      <input type="hidden" asp-for="JobTitle" />
+      <div class="mb-3">
+        <label asp-for="CoverLetter" class="form-label"></label>
+        <textarea asp-for="CoverLetter" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="CoverLetter" class="text-danger"></span>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit application</button>
+      <a asp-controller="Jobs" asp-action="Details" asp-route-id="@Model.JobId" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+</div>
+
+@section Scripts {
+  <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,28 @@
+@model ElevateJobPortal.Models.Job
+@{
+  ViewData["Title"] = Model.Title;
+  var salary = (Model.SalaryMin.HasValue || Model.SalaryMax.HasValue)
+      ? $"{Model.SalaryMin:N0} - {Model.SalaryMax:N0}" : "Not specified";
+}
+
+@if (TempData["Message"] != null)
+{
+  <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<h2>@Model.Title</h2>
+<p class="text-muted">@Model.Company?.Name - @Model.Location - @Model.JobType</p>
+<p><strong>Salary:</strong> @salary</p>
+<p><strong>Deadline:</strong> @Model.Deadline.ToString("yyyy-MM-dd")</p>
+<hr />
+<p style="white-space: pre-wrap">@Model.Description</p>
+
+@if (User.IsInRole("JobSeeker"))
+{
+  <a asp-controller="Applications" asp-action="Apply" asp-route-jobId="@Model.Id" class="btn btn-primary">Apply for this job</a>
+}
+else if (User.Identity?.IsAuthenticated != true)
+{
+  <a asp-controller="Account" asp-action="Login" class="btn btn-outline-primary">Login to apply</a>
+}
+<a asp-action="Index" class="btn btn-secondary">Back to jobs</a>

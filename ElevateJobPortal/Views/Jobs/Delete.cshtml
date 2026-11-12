@@ -1,0 +1,11 @@
+@model ElevateJobPortal.Models.Job
+@{ ViewData["Title"] = "Delete job"; }
+
+<h2>Delete job</h2>
+<div class="alert alert-warning">
+  Are you sure you want to delete <strong>@Model.Title</strong>? Its applications will also be deleted.
+</div>
+<form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+  <button type="submit" class="btn btn-danger">Yes, delete</button>
+  <a asp-action="MyJobs" class="btn btn-secondary">Cancel</a>
+</form>
