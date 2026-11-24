@@ -1,8 +1,28 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@{ ViewData["Title"] = "Home"; }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-3">
+    <h1 class="display-5 fw-bold">Find your next job with Elevate Workforce Solutions</h1>
+    <p class="col-md-8 fs-5">Browse jobs from companies across Nepal, apply online in a few minutes, and let companies manage their vacancies and applications in one place.</p>
+    <a asp-controller="Jobs" asp-action="Index" class="btn btn-primary btn-lg me-2">Browse Jobs</a>
+    @if (User.Identity?.IsAuthenticated != true)
+    {
+      <a asp-controller="Account" asp-action="Register" class="btn btn-outline-secondary btn-lg">Create an account</a>
+    }
+  </div>
+</div>
+
+<div class="row text-center">
+  <div class="col-md-4 mb-3">
+    <h4>For job seekers</h4>
+    <p>See every available job, read the details and apply with a cover letter.</p>
+  </div>
+  <div class="col-md-4 mb-3">
+    <h4>For companies</h4>
+    <p>Post jobs, update them and see all applications on your dashboard.</p>
+  </div>
+  <div class="col-md-4 mb-3">
+    <h4>Open to everyone</h4>
+    <p>Anyone can browse jobs, with no account needed.</p>
+  </div>
 </div>
